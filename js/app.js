@@ -1,14 +1,15 @@
-const qwerty = document.querySelector('qwerty');
+const qwerty = document.getElementById('qwerty');
 const phrase = document.querySelector('phrase');
 const btnReset = document.querySelector('.btn__reset');
 const overlay = document.getElementById('overlay');
 const ul = document.getElementById('list');
-const missed = 0;
+const heartImage = document.getElementsByTagName('img');
+let missed = 0;
 
 const phrases = [
     'Front End',
     'Back End',
-    'Treehouse Techdegree',
+    'Techdegree',
     'Web Development',
     'JavaScript'
 ];
@@ -16,7 +17,7 @@ const phrases = [
 
 
 // Makes overlay disapear 
-btnReset.addEventListener( 'click', () => {
+btnReset.addEventListener( 'click', e => {
     overlay.style.display = 'none';
 })
 
@@ -33,14 +34,14 @@ const randomPhrase = getRandomPhrase(phrases);
 
 
 // Add phrase to display
-const addPhraseToDisplay = (arr) => {
+const addPhraseToDisplay = arr => {
     // Loop to create li for each letter in phase
-    for(let i = 0; i<arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
         let li = document.createElement('li');
         li.textContent = arr[i];
         ul.appendChild(li)
         // Sets classname for phrase charcters
-        if(arr[i] === " "){
+        if (arr[i] === " "){
             li.className = 'space';
         } else {
             li.className = 'letter';
@@ -54,6 +55,50 @@ addPhraseToDisplay(randomPhrase);
 
 
 // Checks if letter is in phrase
-const checkLetter = (button) => {
-    
+const checkLetter = button => {
+    const letter = document.querySelectorAll('li');
+    let match = null;
+    for (let i = 0; i < letter.length; i++){
+        if (letter[i].textContent.toLowerCase() === button.textContent.toLowerCase()) {
+            letter[i].className = 'show';
+            match += letter[i].textContent
+        }
+    }
+    return match;
+}
+
+//Listens for clicks on letter buttons
+qwerty.addEventListener('click', e => {
+    //Disables used letters
+    let button = e.target;
+    if(button.tagName === 'BUTTON'){ 
+        button.className = 'chosen';
+    }
+    //Removes a heart image and replaces with new img
+    if (e.target.className === 'chosen') {
+        button.disabled = true;
+        let letterFound = checkLetter(button);
+        if (letterFound === null) {
+            heartImage[missed].src = 'images/lostheart.png';
+            missed += 1
+        }
+        checkWin();
+    }
+})
+
+//Checks for win or loss
+function checkWin (){
+    const letters = document.getElementsByClassName('letter');
+    const correctLetters = document.getElementsByClassName('show');
+    let h2 = document.querySelector('.title');
+    if (letters.length === correctLetters.length){
+        overlay.className = 'win';
+        h2.textContent = 'You Won!';
+        overlay.style.display =  'flex';
+    } else if (missed> 4){
+        overlay.classname='lose';
+        h2.textContent = 'You Lose!'
+        overlay.style.display = 'flex';
+        btnReset.textContent = 'Try Again'
+    }
 }
