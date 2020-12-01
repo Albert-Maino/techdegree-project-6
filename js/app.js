@@ -21,7 +21,6 @@ btnReset.addEventListener( 'click', e => {
     overlay.style.display = 'none';
 })
 
-
 // Generate random phrase
 const getRandomPhrase = (arr) => {
     const randomNumber = Math.floor(Math.random() * phrases.length);
@@ -92,13 +91,24 @@ function checkWin (){
     const correctLetters = document.getElementsByClassName('show');
     let h2 = document.querySelector('.title');
     if (letters.length === correctLetters.length){
-        overlay.className = 'win';
+        overlay.className = 'win reset';
         h2.textContent = 'You Won!';
         overlay.style.display =  'flex';
+        btnReset.textContent = 'Play Again'
     } else if (missed> 4){
-        overlay.classname='lose';
+        overlay.classname='lose reset';
         h2.textContent = 'You Lose!'
         overlay.style.display = 'flex';
         btnReset.textContent = 'Try Again'
     }
 }
+
+//Reset Game
+btnReset.addEventListener( 'click', e => {
+    const li = document.querySelectorAll('li')
+    for ( let i = 0; i < heartImage.length; i++){
+        heartImage[i].src='images/liveheart.png'
+    }
+    li.classList.remove('chosen');
+    li.classList.remove('show');
+})

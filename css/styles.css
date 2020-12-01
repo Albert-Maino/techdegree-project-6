@@ -12,7 +12,8 @@
   --color-keys: #37474F;
   --color-keys-light: #E5E5E5;
   --font-size-large: 60px;
-  --font-size-medium: 20px;
+  --font-size-medium: 2em;
+  --font-size-small: 20px;
   --transition: all .2s ease-in-out;
 }
 
@@ -30,7 +31,7 @@ body {
 }
 
 li, ol, ul {
-  padding: 0;
+  padding-top: 12px;
   display: inline-block;
 }
 
@@ -47,7 +48,7 @@ button {
   border: 1px solid transparent;
   padding: .5rem 1rem;
   color: var(--color-keys);
-  font-size: var(--font-size-medium);
+  font-size: var(--font-size-small);
   background-color: var(--color-keys-light);
   border-radius: 5px;
   -webkit-transition: var(--transition);
@@ -81,12 +82,12 @@ button {
   font-size: var(--font-size-medium);
   height: 65px;
   width: 65px;
-  padding: 20px 1px 0 1px;
   margin-right: 2px;
   margin-bottom: 2px;
   color: transparent;
   background: var(--color-neutral-light);
   border-radius: 5px;
+  margin-top: 20px;
 }
 
 .space {
@@ -95,7 +96,14 @@ button {
 
 .show {
   color: #000;
-  background-color: #76CE82;
+  font-size: var(--font-size-medium);
+  height: 65px;
+  width: 65px;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  background: var(--color-neutral-light);
+  border-radius: 5px;
+  transition: ease-in 1s;
 }
 
 /* Keyboard */
@@ -108,7 +116,7 @@ button {
 .chosen {
   background: var(--color-neutral);
   border-radius: 5px;
-  font-size: var(--font-size-medium);
+  font-size: var(--font-size-small);
   color: #FFFFFF;
 }
 
