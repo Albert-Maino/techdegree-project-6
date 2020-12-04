@@ -59,7 +59,7 @@ const checkLetter = button => {
     let match = null;
     for (let i = 0; i < letter.length; i++){
         if (letter[i].textContent.toLowerCase() === button.textContent.toLowerCase()) {
-            letter[i].className = 'show';
+            letter[i].classList = 'show';
             match += letter[i].textContent
         }
     }
@@ -103,12 +103,21 @@ function checkWin (){
     }
 }
 
-//Reset Game
+//Reset game
 btnReset.addEventListener( 'click', e => {
     const li = document.querySelectorAll('li')
+    const button = document.querySelectorAll('button')
+    let missed = 0;
+    //Removes chosen letters
+    for ( let i = 0; i < button.length; i++) {
+        button[i].classList.remove('chosen');
+    }
+    //Removes shown letters
+    for ( let i = 0; i < li.length; i++){
+        li[i].className.remove('show')
+    }
+    //Resets hearts
     for ( let i = 0; i < heartImage.length; i++){
         heartImage[i].src='images/liveheart.png'
     }
-    li.classList.remove('chosen');
-    li.classList.remove('show');
 })
