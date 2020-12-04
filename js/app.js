@@ -16,20 +16,11 @@ const phrases = [
 
 
 
-// Makes overlay disapear 
-btnReset.addEventListener( 'click', e => {
-    overlay.style.display = 'none';
-})
-
 // Generate random phrase
 const getRandomPhrase = (arr) => {
     const randomNumber = Math.floor(Math.random() * phrases.length);
     return phrases[randomNumber];
 }
-
-
-// Calls random phrase
-const randomPhrase = getRandomPhrase(phrases);
 
 
 // Add phrase to display
@@ -48,9 +39,29 @@ const addPhraseToDisplay = arr => {
     }
 }
 
-
-// Calls phrase to display
-addPhraseToDisplay(randomPhrase);
+btnReset.addEventListener( 'click', e => {
+//Resets Game
+    const li = document.querySelectorAll('li')
+    const button = document.querySelectorAll('button')
+    missed = 0;
+    //Removes chosen letters
+    for ( let i = 0; i < button.length; i++) {
+        button[i].classList.remove('chosen');
+        button[i].removeAttribute('disabled');
+    }
+    //Removes shown letters
+    ul.innerHTML='';
+    //Resets hearts
+    for ( let i = 0; i < heartImage.length; i++) {
+        heartImage[i].src='images/liveheart.png';
+    }
+    //Calls random phrase
+    const randomPhrase = getRandomPhrase(phrases);
+    //Calls phrase to disply
+    addPhraseToDisplay(randomPhrase);
+    // Makes overlay disapear 
+    overlay.style.display = 'none';
+})
 
 
 // Checks if letter is in phrase
@@ -59,7 +70,7 @@ const checkLetter = button => {
     let match = null;
     for (let i = 0; i < letter.length; i++){
         if (letter[i].textContent.toLowerCase() === button.textContent.toLowerCase()) {
-            letter[i].classList = 'show';
+            letter[i].classList.add('show');
             match += letter[i].textContent
         }
     }
@@ -102,22 +113,3 @@ function checkWin (){
         btnReset.textContent = 'Try Again'
     }
 }
-
-//Reset game
-btnReset.addEventListener( 'click', e => {
-    const li = document.querySelectorAll('li')
-    const button = document.querySelectorAll('button')
-    let missed = 0;
-    //Removes chosen letters
-    for ( let i = 0; i < button.length; i++) {
-        button[i].classList.remove('chosen');
-    }
-    //Removes shown letters
-    for ( let i = 0; i < li.length; i++){
-        li[i].className.remove('show')
-    }
-    //Resets hearts
-    for ( let i = 0; i < heartImage.length; i++){
-        heartImage[i].src='images/liveheart.png'
-    }
-})
